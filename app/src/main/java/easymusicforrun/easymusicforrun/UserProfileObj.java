@@ -7,8 +7,8 @@ public class UserProfileObj {
 
     String localPlayListName = "Usher";
     String youtubePlaylistName = "User";
-    int minWalkingSpeed = 10;
-    int minRunningSpeed = 20;
+    double minWalkingSpeed = -0.01;
+    double minRunningSpeed = -0.01;
 
     public String getLocalPlayListName() {
         return localPlayListName;
@@ -27,7 +27,7 @@ public class UserProfileObj {
         this.youtubePlaylistName = youtubePlaylistName;
     }
 
-    public int getMinWalkingSpeed() {
+    public double getMinWalkingSpeed() {
         return minWalkingSpeed;
     }
 
@@ -35,7 +35,7 @@ public class UserProfileObj {
         this.minWalkingSpeed = minWalkingSpeed;
     }
 
-    public int getMinRunningSpeed() {
+    public double getMinRunningSpeed() {
         return minRunningSpeed;
     }
 

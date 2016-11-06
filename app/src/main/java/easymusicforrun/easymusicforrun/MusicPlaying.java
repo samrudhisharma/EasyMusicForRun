@@ -72,7 +72,7 @@ public class MusicPlaying extends AppCompatActivity {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
                 //Use POJO
-                if (event.values[1] <= -0.01) {
+                if (event.values[1] <= userProfileObj.getMinRunningSpeed()) {
                     speed_condition = true;
                 }
             }
