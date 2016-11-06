@@ -16,16 +16,16 @@ public class UserPreferences extends AppCompatActivity {
         setContentView(R.layout.activity_userpreferences);
     }
 
-    public void callMusicPlaying(View view)
+    public void callMusicPlaylist(View view)
     {
-        Intent intent = new Intent(UserPreferences.this, MusicPlaying.class);
+        Intent intent = new Intent(UserPreferences.this, MusicPlaylist.class);
         startActivity(intent);
     }
 
-    /*
-    public void callMusicPlaying(View view)
+
+    public void callEnterSpeed(View view)
     {
-        Intent intent = new Intent(UserPreferences.this, MusicPlaying.class);
+        Intent intent = new Intent(UserPreferences.this, EnterUserSpeed.class);
         startActivity(intent);
-    }*/
+    }
 }
