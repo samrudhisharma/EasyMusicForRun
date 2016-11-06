@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Music Preferences"
+            android:onClick="callMusicPlaylist"
             android:id="@+id/button8"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -21,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Speed Preferences"
+            android:onClick="callEnterSpeed"
             android:id="@+id/button9"
             android:layout_centerVertical="true"
             android:layout_alignStart="@+id/button8" />
