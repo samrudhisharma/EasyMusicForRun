@@ -3,6 +3,16 @@
 #### Name: Samrudhi Sharma <br/>
 #### Unity ID: ssharm17 <br/>
 
+##### Introduction: <br/>
+
+##### Context Aware Features: <br/>
+
+##### Runtime Adaptation Features: <br/>
+
+##### Features Implemented: <br/>
+##### Features Left: <br/>
+
+##### Screencast: <br/>
 
 ##### References: <br/>
 https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent <br/>
