@@ -1,5 +1,6 @@
 package easymusicforrun.easymusicforrun;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -15,6 +16,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.app.Notification;
 import android.location.Location;
+import android.widget.Toast;
+import android.content.BroadcastReceiver;
+import android.net.ConnectivityManager;
 
 /**
  * Created by samrudhi on 11/6/16.
@@ -45,6 +49,11 @@ public class MusicPlaying extends AppCompatActivity {
             //TODO: Add Channel Code
             watchYoutubeVideo("AQ-P5RR7r40");
         }
+
+        if(isOnline()){
+            System.out.println("Works");
+        }
+
     }
 
     public void watchYoutubeVideo(String id){
@@ -55,6 +64,18 @@ public class MusicPlaying extends AppCompatActivity {
             startActivity(appIntent);
         } catch (ActivityNotFoundException ex) {
             startActivity(webIntent);
+        }
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        // test for connection
+        if (cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
