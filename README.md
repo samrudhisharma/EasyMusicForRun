@@ -21,3 +21,4 @@ https://stackoverflow.com/questions/25824554/how-to-make-another-activity-as-mai
 https://stackoverflow.com/questions/13194081/how-to-open-a-second-activity-on-click-of-button-in-android-app <br/>
 https://stackoverflow.com/questions/26312733/neither-user-nor-current-process-has-android-permission-access-coarse-location <br/>
 https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out?page=1&tab=votes#tab-top <br/>
+https://stackoverflow.com/questions/6179906/how-can-i-receive-a-notification-when-the-device-loses-network-connectivity <br/>
