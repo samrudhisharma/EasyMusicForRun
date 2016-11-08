@@ -19,14 +19,14 @@ import android.location.Location;
 import android.widget.Toast;
 import android.content.BroadcastReceiver;
 import android.net.ConnectivityManager;
+import android.content.IntentFilter;
 
-/**
- * Created by samrudhi on 11/6/16.
- */
+
 public class MusicPlaying extends AppCompatActivity {
 
     private SensorManager sensorManager;
     boolean speed_condition = true;
+    private MusicIntentReceiver myReceiver;
     private UserProfileObj userProfileObj = new UserProfileObj();
 
     @Override
@@ -53,6 +53,8 @@ public class MusicPlaying extends AppCompatActivity {
         if(isOnline()){
             System.out.println("Works");
         }
+
+        myReceiver = new MusicIntentReceiver();
 
     }
 
@@ -99,6 +101,35 @@ public class MusicPlaying extends AppCompatActivity {
             }
         }
     };
+
+    @Override public void onResume() {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        registerReceiver(myReceiver, filter);
+        super.onResume();
+    }
+
+    private class MusicIntentReceiver extends BroadcastReceiver {
+        @Override public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+                int state = intent.getIntExtra("state", -1);
+                switch (state) {
+                    case 0:
+                        System.out.println("Headset is unplugged");
+                        break;
+                    case 1:
+                        System.out.println("Headset is plugged");
+                        break;
+                    default:
+                        System.out.println("I have no idea what the headset state is");
+                }
+            }
+        }
+    }
+
+    @Override public void onPause() {
+        unregisterReceiver(myReceiver);
+        super.onPause();
+    }
 
 
 }
