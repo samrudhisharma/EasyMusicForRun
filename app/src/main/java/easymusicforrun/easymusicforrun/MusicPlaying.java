@@ -20,6 +20,8 @@ import android.widget.Toast;
 import android.content.BroadcastReceiver;
 import android.net.ConnectivityManager;
 import android.content.IntentFilter;
+import android.net.NetworkInfo;
+import android.util.Log;
 
 
 public class MusicPlaying extends AppCompatActivity {
@@ -27,7 +29,9 @@ public class MusicPlaying extends AppCompatActivity {
     private SensorManager sensorManager;
     boolean speed_condition = true;
     private MusicIntentReceiver myReceiver;
+    private  NetworkChangedReceiver mConnReceiver;
     private UserProfileObj userProfileObj = new UserProfileObj();
+    private final String CONNECTIVITY = "android.net.conn.CONNECTIVITY_CHANGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class MusicPlaying extends AppCompatActivity {
 
         if(speed_condition) {
             //TODO: Add Channel Code
-            watchYoutubeVideo("AQ-P5RR7r40");
+            //watchYoutubeVideo("AQ-P5RR7r40");
         }
 
         if(isOnline()){
@@ -55,6 +59,8 @@ public class MusicPlaying extends AppCompatActivity {
         }
 
         myReceiver = new MusicIntentReceiver();
+
+        registerReceiver();
 
     }
 
@@ -129,6 +135,61 @@ public class MusicPlaying extends AppCompatActivity {
     @Override public void onPause() {
         unregisterReceiver(myReceiver);
         super.onPause();
+    }
+
+    private void registerReceiver() {
+        mConnReceiver = new NetworkChangedReceiver();
+        registerReceiver(mConnReceiver, new IntentFilter(CONNECTIVITY));
+    }
+
+
+    private void internetChanged(boolean networkAvailable) {
+
+        System.out.println("Internet Changed");
+        if(networkAvailable){
+
+            System.out.println("Yo1");
+
+        }else{
+            System.out.println("Yo2");
+        }
+    }
+
+
+    private class NetworkChangedReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            internetChanged(isNetworkAvailable(ctx));
+        }
+
+        // Checks if Internet is Online via Wifi or Mobile
+        public boolean isNetworkAvailable(Context context) {
+            boolean isMobile = false, isWifi = false;
+
+            NetworkInfo[] infoAvailableNetworks = getConnectivityManagerInstance(context).getAllNetworkInfo();
+
+            if (infoAvailableNetworks != null) {
+                for (NetworkInfo network : infoAvailableNetworks) {
+
+                    if (network.getType() == ConnectivityManager.TYPE_WIFI) {
+                        if (network.isConnected() && network.isAvailable())
+                            isWifi = true;
+                    }
+                    if (network.getType() == ConnectivityManager.TYPE_MOBILE) {
+                        if (network.isConnected() && network.isAvailable())
+                            isMobile = true;
+                    }
+                }
+            }
+
+            return isMobile || isWifi;
+        }
+
+        private ConnectivityManager getConnectivityManagerInstance(Context context) {
+            return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+
     }
 
 
