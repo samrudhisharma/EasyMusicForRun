@@ -23,3 +23,4 @@ https://stackoverflow.com/questions/26312733/neither-user-nor-current-process-ha
 https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out?page=1&tab=votes#tab-top <br/>
 https://stackoverflow.com/questions/6179906/how-can-i-receive-a-notification-when-the-device-loses-network-connectivity <br/>
 https://stackoverflow.com/questions/13610258/how-to-detect-when-a-user-plugs-headset-on-android-device-opposite-of-action-a <br/>
+https://stackoverflow.com/questions/15698790/broadcast-receiver-for-checking-internet-connection-in-android-app <br/>
