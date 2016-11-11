@@ -31,6 +31,8 @@ The application being suggested is called “Easy Music For Run”. This applica
 1. Setting profiles
 2. Playing music from a local playlist.
 
+##### Screenshots: <br/>
+
 ##### Screencast: <br/>
 
 TODO
