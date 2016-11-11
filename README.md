@@ -4,15 +4,36 @@
 #### Unity ID: ssharm17 <br/>
 
 ##### Introduction: <br/>
+The application being suggested is called “Easy Music For Run”. This application helps manage the nature of a music playlist such that a user has a consistent experience while being active or inactive. The application takes into account features such as internet connectivity and headphones being plugged in. To improve the application experience further we could incorporate step counters and/or ability to handle incoming phone calls. <br/>
 
 ##### Context Aware Features: <br/>
 
+1. Ability to detect if headphones connected or not.
+2. Ability to detect if internet connected or not.
+3. Ability to detect speed of runner.
+4. Ability to switch music or alter music as per internet connectivity.
+
 ##### Runtime Adaptation Features: <br/>
 
+1. Runner can specify the minimum running speed. 
+2. Runner can specify the type of music he wants.
+
 ##### Features Implemented: <br/>
+
+1. Receiver to detect if headphones connected or not.
+2. Receiver to detect if internet connectivity is there or not.
+3. Receiver to detect location, and speed of user. 
+4. Views and flow for user.
+5. POJO to change values.
+
 ##### Features Left: <br/>
 
+1. Setting profiles
+2. Playing music from a local playlist.
+
 ##### Screencast: <br/>
+
+TODO
 
 ##### References: <br/>
 https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent <br/>
