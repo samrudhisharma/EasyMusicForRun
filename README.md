@@ -28,8 +28,15 @@ The application being suggested is called “Easy Music For Run”. This applica
 
 ##### Features Left: <br/>
 
+0. Complete flow, with different contexts.
 1. Setting profiles
 2. Playing music from a local playlist.
+
+##### Installation Requirements: <br/>
+
+1. Clone this repository.
+2. Open in Android Studio and Click Run.
+3. Currently a complete flow of the application is not complete. 
 
 ##### Screenshots: <br/>
 
