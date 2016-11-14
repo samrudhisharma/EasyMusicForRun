@@ -13,7 +13,7 @@ public class MusicPlaylist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicplaylist);
-        
+
         Button button10 = (Button) findViewById(R.id.button10);
         button10.setOnClickListener(new OnClickListener() {
 
@@ -24,10 +24,6 @@ public class MusicPlaylist extends AppCompatActivity {
             {
                 final String _runningId = runningId.getText().toString();
                 final String _walkingId = walkingId.getText().toString();
-
-                System.out.println("samrudhi sharma: "+_runningId);
-                System.out.println("samrudhi sharma: "+_walkingId);
-
             }
         });
 
