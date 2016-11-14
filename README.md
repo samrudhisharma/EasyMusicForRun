@@ -38,6 +38,8 @@ The application being suggested is called “Easy Music For Run”. This applica
 2. Open in Android Studio and Click Run.
 3. Currently a complete flow of the application is not complete. 
 
+##### Instructions to run: <br/>
+
 ##### Screenshots: <br/>
 
 ##### Screencast: <br/>
