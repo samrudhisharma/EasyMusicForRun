@@ -55,48 +55,30 @@ import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihood;
 
-
-
-public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private SensorManager sensorManager;
-    boolean speed_condition = true;
     private MusicIntentReceiver myReceiver;
-    private  NetworkChangedReceiver mConnReceiver;
+    private NetworkChangedReceiver mConnReceiver;
     private UserProfileObj userProfileObj = new UserProfileObj();
     private final String CONNECTIVITY = "android.net.conn.CONNECTIVITY_CHANGE";
     private GoogleApiClient mGoogleApiClient;
-
     private final static int REQUEST_PERMISSION_RESULT_CODE = 42;
+
+
+    // conditional variables
+    boolean speed_condition = false;
+    boolean connectivity_condition =  false;
+    boolean headset_condition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicplaying);
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        myReceiver = new MusicIntentReceiver();
 
-
-        Sensor AccelometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        if (AccelometerSensor != null) {
-            sensorManager.registerListener(
-                    AccelometerSensorListener,
-                    AccelometerSensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
-        if(speed_condition) {
-            //TODO: Add Channel Code
-            //watchYoutubeVideo("AQ-P5RR7r40");
-        }
-
-        if(isOnline()){
-            System.out.println("Works");
-        }
-
-        //myReceiver = new MusicIntentReceiver();
-
-        //registerReceiver();
+        registerReceiver();
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -105,16 +87,14 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                 .build();
         mGoogleApiClient.connect();
 
-        detectHeadphones();
-
+        detectActivity();
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
 
-
-
-    public void watchYoutubeVideo(String id){
+    public void watchYoutubeVideo(String id) {
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
         Intent webIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=" + id));
@@ -125,64 +105,51 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-    public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        // test for connection
-        if (cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isAvailable()
-                && cm.getActiveNetworkInfo().isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private final SensorEventListener AccelometerSensorListener
-            = new SensorEventListener() {
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-
-                //Use POJO
-                if (event.values[1] <= userProfileObj.getMinRunningSpeed()) {
-                    speed_condition = true;
-                }
-            }
-        }
-    };
-
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         registerReceiver(myReceiver, filter);
         super.onResume();
     }
 
     private class MusicIntentReceiver extends BroadcastReceiver {
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
                     case 0:
                         System.out.println("Headset is unplugged");
+                        headset_condition = false;
+                        //Running, wifi connected, headphones connected
+                        if (speed_condition && connectivity_condition) {
+                            Toast.makeText(MusicPlaying.this,
+                                    "Headset is Unplugged", Toast.LENGTH_LONG).show();
+                        }
                         break;
                     case 1:
                         System.out.println("Headset is plugged");
+                        headset_condition = true;
+                        System.out.println("Rohit 1 " + speed_condition);
+                        System.out.println("Rohit 2 " + connectivity_condition);
+                        System.out.println("Rohit 3 " + headset_condition);
+
+                        //Running, wifi connected, headphones connected
+                        if (speed_condition && headset_condition && connectivity_condition) {
+                            //TODO: Add Channel Code
+                            watchYoutubeVideo("AQ-P5RR7r40");
+                        }
                         break;
                     default:
                         System.out.println("I have no idea what the headset state is");
+                        headset_condition = false;
                 }
             }
         }
     }
 
-    @Override public void onPause() {
+    @Override
+    public void onPause() {
         unregisterReceiver(myReceiver);
         super.onPause();
     }
@@ -192,22 +159,21 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         registerReceiver(mConnReceiver, new IntentFilter(CONNECTIVITY));
     }
 
-
     private void internetChanged(boolean networkAvailable) {
 
         System.out.println("Internet Changed");
-        if(networkAvailable){
+        if (networkAvailable) {
+            System.out.println("Internet Connected");
+            connectivity_condition = true;
 
-            System.out.println("Yo1");
-
-        }else{
-            System.out.println("Yo2");
+        } else {
+            System.out.println("Internet Not Connected");
+            connectivity_condition = false;
         }
     }
 
 
-    private class NetworkChangedReceiver extends BroadcastReceiver
-    {
+    private class NetworkChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context ctx, Intent intent) {
             internetChanged(isNetworkAvailable(ctx));
@@ -245,8 +211,8 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
 
     //Awareness API related code
     private boolean checkLocationPermission() {
-        if( !hasLocationPermission() ) {
-            Log.e("Tuts+", "Does not have location permission granted");
+        if (!hasLocationPermission()) {
+            System.out.println("Does not have location permission granted");
             requestLocationPermission();
             return false;
         }
@@ -257,13 +223,13 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
     private void requestLocationPermission() {
         ActivityCompat.requestPermissions(
                 MusicPlaying.this,
-                new String[]{ Manifest.permission.ACCESS_FINE_LOCATION },
-                REQUEST_PERMISSION_RESULT_CODE );
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_PERMISSION_RESULT_CODE);
     }
 
 
     private boolean hasLocationPermission() {
-        return ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION )
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -277,99 +243,166 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //granted
                 } else {
-                    Log.e("Tuts+", "Location permission denied.");
+                    System.out.println("Location permission denied.");
                 }
             }
         }
     }
 
-
-    private void detectHeadphones() {
-        System.out.println("Rohit");
-        Awareness.SnapshotApi.getHeadphoneState(mGoogleApiClient)
-                .setResultCallback(new ResultCallback<HeadphoneStateResult>() {
-                    @Override
-                    public void onResult(@NonNull HeadphoneStateResult headphoneStateResult) {
-                        HeadphoneState headphoneState = headphoneStateResult.getHeadphoneState();
-                        if (headphoneState.getState() == HeadphoneState.PLUGGED_IN) {
-                            Log.e("Tuts+", "Headphones are plugged in.");
-                            System.out.println("Headphones Plugged In!!!!!!");
-                        } else {
-                            Log.e("Tuts+", "Headphones are NOT plugged in.");
-                        }
-                    }
-                });
-    }
-
-    private void detectLocation() {
-        if( !checkLocationPermission() ) {
-            return;
-        }
-        System.out.println("Rohit");
-        Awareness.SnapshotApi.getLocation(mGoogleApiClient)
-                .setResultCallback(new ResultCallback<LocationResult>() {
-                    @Override
-                    public void onResult(@NonNull LocationResult locationResult) {
-                        Location location = locationResult.getLocation();
-
-                        Log.e("Tuts+", "Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
-
-                        Log.e("Tuts+", "Provider: " + location.getProvider() + " time: " + location.getTime());
-
-                        if( location.hasAccuracy() ) {
-                            Log.e("Tuts+", "Accuracy: " + location.getAccuracy());
-                        }
-                        if( location.hasAltitude() ) {
-                            Log.e("Tuts+", "Altitude: " + location.getAltitude());
-                        }
-                        if( location.hasBearing() ) {
-                            Log.e("Tuts+", "Bearing: " + location.getBearing());
-                        }
-                        if( location.hasSpeed() ) {
-                            Log.e("Tuts+", "Speed: " + location.getSpeed());
-                        }
-                    }
-                });
-    }
-
-    private void detectWeather() {
-        if( !checkLocationPermission() ) {
-            return;
-        }
-        System.out.println("Rohit");
-        Awareness.SnapshotApi.getWeather(mGoogleApiClient)
-                .setResultCallback(new ResultCallback<WeatherResult>() {
-                    @Override
-                    public void onResult(@NonNull WeatherResult weatherResult) {
-                        Weather weather = weatherResult.getWeather();
-                        Log.e("Tuts+", "Temp: " + weather.getTemperature(Weather.FAHRENHEIT));
-                        Log.e("Tuts+", "Feels like: " + weather.getFeelsLikeTemperature(Weather.FAHRENHEIT));
-                        Log.e("Tuts+", "Dew point: " + weather.getDewPoint(Weather.FAHRENHEIT));
-                        Log.e("Tuts+", "Humidity: " + weather.getHumidity() );
-
-                        if( weather.getConditions()[0] == Weather.CONDITION_CLOUDY ) {
-                            Log.e("Tuts+", "Looks like there's some clouds out there");
-                        }
-                    }
-                });
-    }
-
     private void detectActivity() {
-        System.out.println("Rohit");
         Awareness.SnapshotApi.getDetectedActivity(mGoogleApiClient)
                 .setResultCallback(new ResultCallback<DetectedActivityResult>() {
                     @Override
                     public void onResult(@NonNull DetectedActivityResult detectedActivityResult) {
                         ActivityRecognitionResult result = detectedActivityResult.getActivityRecognitionResult();
-                        Log.e("Tuts+", "time: " + result.getTime());
-                        Log.e("Tuts+", "elapsed time: " + result.getElapsedRealtimeMillis());
-                        Log.e("Tuts+", "Most likely activity: " + result.getMostProbableActivity().toString());
+                        System.out.println("time: " + result.getTime());
+                        System.out.println("elapsed time: " + result.getElapsedRealtimeMillis());
+                        System.out.println("Most likely activity: " + result.getMostProbableActivity().toString());
 
-                        for( DetectedActivity activity : result.getProbableActivities() ) {
-                            Log.e("Tuts+", "Activity: " + activity.getType() + " Likelihood: " + activity.getConfidence() );
+                        for (DetectedActivity activity : result.getProbableActivities()) {
+                            System.out.println("Activity: " + activity.getType() + " Likelihood: " + activity.getConfidence());
+                            if(activity.getType() == 3 && activity.getConfidence() >= 60) {
+                                System.out.println("SAMrudhi here: " + activity.getType());
+                                speed_condition = true;
+                            }
                         }
                     }
                 });
     }
 
 }
+
+
+    /*
+    if(isOnline()){
+        System.out.println("Works");
+    }*/
+
+    /*
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        // test for connection
+        if (cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+
+//sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+/*
+*
+        Sensor AccelometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (AccelometerSensor != null) {
+            sensorManager.registerListener(
+                    AccelometerSensorListener,
+                    AccelometerSensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }*/
+
+
+/*
+* private final SensorEventListener AccelometerSensorListener
+            = new SensorEventListener() {
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+
+                //Use POJO
+                if (event.values[1] <= userProfileObj.getMinRunningSpeed()) {
+                    speed_condition = true;
+                }
+            }
+        }
+    };
+*
+*
+* */
+
+//detectHeadphones();
+//detectLocation();
+//detectWeather();
+
+/*
+* private void detectHeadphones() {
+        Awareness.SnapshotApi.getHeadphoneState(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<HeadphoneStateResult>() {
+                    @Override
+                    public void onResult(@NonNull HeadphoneStateResult headphoneStateResult) {
+                        HeadphoneState headphoneState = headphoneStateResult.getHeadphoneState();
+                        if (headphoneState.getState() == HeadphoneState.PLUGGED_IN) {
+                            System.out.println("Headphones Plugged In!!!!!!");
+                        } else {
+                            System.out.println("Headphones are NOT plugged in.");
+                        }
+                    }
+                });
+    }
+*
+* */
+
+/*
+*
+* private void detectWeather() {
+        if (!checkLocationPermission()) {
+            return;
+        }
+        Awareness.SnapshotApi.getWeather(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<WeatherResult>() {
+                    @Override
+                    public void onResult(@NonNull WeatherResult weatherResult) {
+                        Weather weather = weatherResult.getWeather();
+                        System.out.println("Temp: " + weather.getTemperature(Weather.FAHRENHEIT));
+                        System.out.println("Feels like: " + weather.getFeelsLikeTemperature(Weather.FAHRENHEIT));
+                        System.out.println("Dew point: " + weather.getDewPoint(Weather.FAHRENHEIT));
+                        System.out.println("Humidity: " + weather.getHumidity());
+
+                        if (weather.getConditions()[0] == Weather.CONDITION_CLOUDY) {
+                            System.out.println("Looks like there's some clouds out there");
+                        }
+                    }
+                });
+    }
+* */
+
+/*
+* private void detectLocation() {
+        if (!checkLocationPermission()) {
+            return;
+        }
+        Awareness.SnapshotApi.getLocation(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<LocationResult>() {
+                    @Override
+                    public void onResult(@NonNull LocationResult locationResult) {
+                        Location location = locationResult.getLocation();
+
+                        System.out.println("Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
+
+                        System.out.println("Provider: " + location.getProvider() + " time: " + location.getTime());
+
+                        if (location.hasAccuracy()) {
+                            System.out.println("Accuracy: " + location.getAccuracy());
+                        }
+                        if (location.hasAltitude()) {
+                            System.out.println("Altitude: " + location.getAltitude());
+                        }
+                        if (location.hasBearing()) {
+                            System.out.println("Bearing: " + location.getBearing());
+                        }
+                        if (location.hasSpeed()) {
+                            System.out.println("Speed: " + location.getSpeed());
+                        }
+                    }
+                });
+    }
+* */
