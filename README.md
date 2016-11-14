@@ -57,3 +57,4 @@ https://stackoverflow.com/questions/6179906/how-can-i-receive-a-notification-whe
 https://stackoverflow.com/questions/13610258/how-to-detect-when-a-user-plugs-headset-on-android-device-opposite-of-action-a <br/>
 https://stackoverflow.com/questions/15698790/broadcast-receiver-for-checking-internet-connection-in-android-app <br/>
 https://inthecheesefactory.com/blog/google-awareness-api-in-action/en<br/>
+https://code.tutsplus.com/tutorials/android-essentials-creating-simple-user-forms--mobile-1758 <br/>
