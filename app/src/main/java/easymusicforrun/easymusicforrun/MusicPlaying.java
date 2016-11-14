@@ -130,9 +130,6 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                     case 1:
                         System.out.println("Headset is plugged");
                         headset_condition = true;
-                        System.out.println("Rohit 1 " + speed_condition);
-                        System.out.println("Rohit 2 " + connectivity_condition);
-                        System.out.println("Rohit 3 " + headset_condition);
 
                         //Running, wifi connected, headphones connected
                         if (speed_condition && headset_condition && connectivity_condition) {
@@ -165,9 +162,14 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         if (networkAvailable) {
             System.out.println("Internet Connected");
             connectivity_condition = true;
+            if(headset_condition && speed_condition) {
+                watchYoutubeVideo("AQ-P5RR7r40");
+            }
 
         } else {
             System.out.println("Internet Not Connected");
+            Toast.makeText(MusicPlaying.this,
+                    "Internet Disconnected. Please Connect the Wifi and LTE.", Toast.LENGTH_LONG).show();
             connectivity_condition = false;
         }
     }
@@ -261,9 +263,24 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
 
                         for (DetectedActivity activity : result.getProbableActivities()) {
                             System.out.println("Activity: " + activity.getType() + " Likelihood: " + activity.getConfidence());
-                            if(activity.getType() == 3 && activity.getConfidence() >= 60) {
-                                System.out.println("SAMrudhi here: " + activity.getType());
+                            if(activity.getType() == 8 && activity.getConfidence() >= 60) {
                                 speed_condition = true;
+                                if(headset_condition && connectivity_condition) {
+                                    watchYoutubeVideo("AQ-P5RR7r40");
+                                }
+
+                            } else if(activity.getType() == 7 && activity.getConfidence() >= 60) {
+                                Toast.makeText(MusicPlaying.this,
+                                        "Your are walking, music will slow down", Toast.LENGTH_LONG).show();
+                                if(headset_condition) {
+                                    watchYoutubeVideo("wzjWIxXBs_s");
+                                }
+                            }
+                            else if(activity.getType() == 3 && activity.getConfidence() >= 60) {
+
+                                Toast.makeText(MusicPlaying.this,
+                                        "Your are stationary please begin walking", Toast.LENGTH_LONG).show();
+
                             }
                         }
                     }
