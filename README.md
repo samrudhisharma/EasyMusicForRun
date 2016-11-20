@@ -44,7 +44,12 @@ The application being suggested is called “Easy Music For Run”. This applica
 
 ##### Application Flow: <br/>
 
-TODO
+1. The Runner must provide the details of the local file name, video id for running, and id for walking. This must be done through clicking the application settings. 
+
+2. Next the runner will navigate back to the home page and click on Play. 
+3. Depending on the context the appropriate action will happen. For example, as shown in the Screenshots, if the Wifi or LTE is not present, and headphones are connected and the user is active, a local clip will be played and a toast will be shown. 
+4. Now if the the headphones are connected, Wifi is on, and the user is active a Youtube video will be displayed once the user clicks on Play again.
+
 
 ##### References: <br/>
 https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent <br/>
