@@ -13,10 +13,16 @@ The application being suggested is called “Easy Music For Run”. This applica
 3. Ability to detect speed of runner.
 4. Ability to switch music or alter music as per internet connectivity.
 
+Relevant Files:
+[MusicPlaying.java](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/MusicPlaying.java)
+
 ##### Runtime Adaptation Features: <br/>
 
-1. Runner can specify the minimum running speed. 
-2. Runner can specify the type of music he wants.
+1. Runner can specify the type of music he wants.
+
+Relevant Files:
+[Taking inputs to populate values](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/MusicPlaylist.java)
+[Global Constants File. Must be populated by user before trying to play app.](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/Constants.java)
 
 ##### Features Implemented: <br/>
 
@@ -30,7 +36,7 @@ The application being suggested is called “Easy Music For Run”. This applica
 
 ##### Features Left: <br/>
 
-0. Handle playlists, rather than playing just one song. 
+1. Handle playlists, rather than playing just one song. 
 
 ##### Installation Requirements: <br/>
 
