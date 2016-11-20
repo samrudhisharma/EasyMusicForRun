@@ -21,7 +21,7 @@ Relevant Files:
 1. Runner can specify the type of music he wants.
 
 Relevant Files:
-[Taking inputs to populate values](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/MusicPlaylist.java)
+[Taking inputs to populate values](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/MusicPlaylist.java) <br/>
 [Global Constants File. Must be populated by user before trying to play app.](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/Constants.java)
 
 ##### Features Implemented: <br/>
