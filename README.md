@@ -42,7 +42,6 @@ Relevant Files:<br/>
 
 1. Clone this repository.
 2. Open in Android Studio and Click Run.
-3. Currently a complete flow of the application is not complete. 
 
 ##### Screenshots: <br/>
 
