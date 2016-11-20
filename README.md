@@ -40,7 +40,7 @@ The application being suggested is called “Easy Music For Run”. This applica
 
 ##### Screenshots: <br/>
 
-##### Screencast: <br/>
+##### Application Flow: <br/>
 
 TODO
 
