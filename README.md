@@ -13,7 +13,7 @@ The application being suggested is called “Easy Music For Run”. This applica
 3. Ability to detect speed of runner.
 4. Ability to switch music or alter music as per internet connectivity.
 
-Relevant Files:
+Relevant Files: <br/>
 [MusicPlaying.java](https://github.com/samrudhisharma/EasyMusicForRun/blob/master/app/src/main/java/easymusicforrun/easymusicforrun/MusicPlaying.java)
 
 ##### Runtime Adaptation Features: <br/>
