@@ -7,9 +7,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.content.Intent;
 
-/**
- * Created by samrudhi on 11/6/16.
- */
 public class HomePage extends AppCompatActivity {
 
     private UserProfileObj userProfileObj = new UserProfileObj();
@@ -40,6 +37,10 @@ public class HomePage extends AppCompatActivity {
         //intent.putExtra("Minimum Walking Speed set by user", userProfileObj.getMinWalkingSpeed());
         //intent.putExtra("Minimum running speed set by user", userProfileObj.getMinRunningSpeed());
         startActivity(intent);
+    }
+
+    public void callSystemExit(View view) {
+        System.exit(0);
     }
 
 }

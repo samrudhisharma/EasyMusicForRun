@@ -7,9 +7,6 @@ import android.view.View;
 
 import java.util.List;
 
-/**
- * Created by samrudhi on 11/6/16.
- */
 public class ListActivity extends AppCompatActivity {
 
     @Override

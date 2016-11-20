@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-/**
- * Created by samrudhi on 11/6/16.
- */
 public class UserPreferences extends AppCompatActivity {
 
     @Override

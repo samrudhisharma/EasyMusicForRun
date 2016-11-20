@@ -1,8 +1,5 @@
 package easymusicforrun.easymusicforrun;
 
-/**
- * Created by samrudhi on 11/6/16.
- */
 public class UserProfileObj {
 
     String localPlayListName = "Usher";
@@ -17,8 +14,7 @@ public class UserProfileObj {
     public void setLocalPlayListName(String localPlayListName) {
         this.localPlayListName = localPlayListName;
     }
-
-
+    
     public String getYoutubePlaylistName() {
         return youtubePlaylistName;
     }

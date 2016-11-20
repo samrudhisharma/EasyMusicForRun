@@ -35,14 +35,6 @@
             android:label="@string/app_name">
         </activity>
 
-        <activity android:name=".ChooseNotification"
-            android:label="@string/app_name">
-        </activity>
-
-        <activity android:name=".EnterUserSpeed"
-            android:label="@string/app_name">
-        </activity>
-
         <activity android:name=".MusicPlaying"
             android:label="@string/app_name">
             <receiver android:name=".MusicIntentReceiver" >

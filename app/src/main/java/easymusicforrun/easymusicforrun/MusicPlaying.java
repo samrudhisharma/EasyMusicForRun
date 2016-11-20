@@ -7,21 +7,12 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 
-import android.app.PendingIntent;
-import android.app.NotificationManager;
-import android.support.v4.app.NotificationCompat;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.app.Notification;
-import android.location.Location;
 import android.widget.Toast;
 import android.content.BroadcastReceiver;
 import android.net.ConnectivityManager;
 import android.content.IntentFilter;
 import android.net.NetworkInfo;
-import android.util.Log;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.common.ConnectionResult;
@@ -29,31 +20,11 @@ import android.support.annotation.NonNull;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import com.google.android.gms.awareness.snapshot.HeadphoneStateResult;
 
-import com.google.android.gms.awareness.Awareness;
-import com.google.android.gms.awareness.fence.AwarenessFence;
-import com.google.android.gms.awareness.fence.DetectedActivityFence;
-import com.google.android.gms.awareness.fence.FenceState;
-import com.google.android.gms.awareness.fence.FenceUpdateRequest;
-import com.google.android.gms.awareness.fence.LocationFence;
-import com.google.android.gms.awareness.snapshot.BeaconStateResult;
 import com.google.android.gms.awareness.snapshot.DetectedActivityResult;
-import com.google.android.gms.awareness.snapshot.HeadphoneStateResult;
-import com.google.android.gms.awareness.snapshot.LocationResult;
-import com.google.android.gms.awareness.snapshot.PlacesResult;
-import com.google.android.gms.awareness.snapshot.WeatherResult;
-import com.google.android.gms.awareness.state.BeaconState;
-import com.google.android.gms.awareness.state.HeadphoneState;
-import com.google.android.gms.awareness.state.Weather;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceLikelihood;
 import android.media.MediaPlayer;
 
 
@@ -81,15 +52,6 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         myReceiver = new MusicIntentReceiver();
 
         registerReceiver();
-
-        if (mp != null) {
-            mp.release();
-        }
-        // Create a new MediaPlayer to play this sound
-        mp = MediaPlayer.create(this, R.raw.clip1);
-        mp.start();
-
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Awareness.API)
@@ -145,6 +107,8 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                         if (speed_condition && headset_condition && connectivity_condition) {
                             //TODO: Add Channel Code
                             watchYoutubeVideo("AQ-P5RR7r40");
+                        } else if(speed_condition && headset_condition) {
+                            playLocalStoredClip();
                         }
                         break;
                     default:
@@ -181,6 +145,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
             Toast.makeText(MusicPlaying.this,
                     "Internet Disconnected. Please Connect the Wifi and LTE.", Toast.LENGTH_LONG).show();
             connectivity_condition = false;
+            playLocalStoredClip();
         }
     }
 
@@ -295,6 +260,17 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                         }
                     }
                 });
+    }
+
+    private void playLocalStoredClip() { //Replace with playlist name
+
+        if (mp != null) {
+            mp.release();
+        }
+
+        // Create a new MediaPlayer to play this sound
+        mp = MediaPlayer.create(this, R.raw.clip1);
+        mp.start();
     }
 
 }
