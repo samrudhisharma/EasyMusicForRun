@@ -25,20 +25,18 @@ The application being suggested is called “Easy Music For Run”. This applica
 3. Receiver to detect location, and speed of user. 
 4. Views and flow for user.
 5. POJO to change values.
+6. Play a local file.
+7. Entire Workflow.
 
 ##### Features Left: <br/>
 
-0. Complete flow, with different contexts.
-1. Setting profiles
-2. Playing music from a local playlist.
+0. Handle playlists, rather than playing just one song. 
 
 ##### Installation Requirements: <br/>
 
 1. Clone this repository.
 2. Open in Android Studio and Click Run.
 3. Currently a complete flow of the application is not complete. 
-
-##### Instructions to run: <br/>
 
 ##### Screenshots: <br/>
 
