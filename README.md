@@ -58,3 +58,4 @@ https://stackoverflow.com/questions/13610258/how-to-detect-when-a-user-plugs-hea
 https://stackoverflow.com/questions/15698790/broadcast-receiver-for-checking-internet-connection-in-android-app <br/>
 https://inthecheesefactory.com/blog/google-awareness-api-in-action/en<br/>
 https://code.tutsplus.com/tutorials/android-essentials-creating-simple-user-forms--mobile-1758 <br/>
+http://www.compiletimeerror.com/2013/10/playing-audio-in-android-application.html#.WDHSaKIrK34 <br/>
