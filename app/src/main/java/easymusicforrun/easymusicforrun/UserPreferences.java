@@ -18,11 +18,4 @@ public class UserPreferences extends AppCompatActivity {
         Intent intent = new Intent(UserPreferences.this, MusicPlaylist.class);
         startActivity(intent);
     }
-
-
-    public void callEnterSpeed(View view)
-    {
-        Intent intent = new Intent(UserPreferences.this, EnterUserSpeed.class);
-        startActivity(intent);
-    }
 }

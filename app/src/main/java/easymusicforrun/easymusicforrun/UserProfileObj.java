@@ -1,5 +1,10 @@
 package easymusicforrun.easymusicforrun;
 
+import java.io.IOException;
+import android.content.Context;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+
 public class UserProfileObj {
 
     String localPlaylistClipName = "";
@@ -29,5 +34,8 @@ public class UserProfileObj {
     public void setGetYoutubeVideoIdForWalking(String youtubeVideoIdForWalking) {
         this.youtubeVideoIdForWalking = youtubeVideoIdForWalking;
     }
+
+
+
 
 }

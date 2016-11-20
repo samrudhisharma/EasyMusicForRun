@@ -23,12 +23,6 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void callChooseNotification(View view)
-    {
-        Intent intent = new Intent(HomePage.this, ChooseNotification.class);
-        startActivity(intent);
-    }
-
     public void callMusicPlaying(View view)
     {
         Intent intent = new Intent(HomePage.this, MusicPlaying.class);

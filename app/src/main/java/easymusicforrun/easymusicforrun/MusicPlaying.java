@@ -33,7 +33,6 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
     private SensorManager sensorManager;
     private MusicIntentReceiver myReceiver;
     private NetworkChangedReceiver mConnReceiver;
-    private UserProfileObj userProfileObj = new UserProfileObj();
     private final String CONNECTIVITY = "android.net.conn.CONNECTIVITY_CHANGE";
     private GoogleApiClient mGoogleApiClient;
     private final static int REQUEST_PERMISSION_RESULT_CODE = 42;
@@ -49,8 +48,6 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicplaying);
 
-        UserProfileObj userProfileObj = new UserProfileObj();
-
         myReceiver = new MusicIntentReceiver();
 
         registerReceiver();
@@ -63,6 +60,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
 
         detectActivity();
     }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -108,9 +106,9 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                         //Running, wifi connected, headphones connected
                         if (speed_condition && headset_condition && connectivity_condition) {
                             //TODO: Add Channel Code
-                            watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
+                            watchYoutubeVideo(Constants.youtubeVideoIdForRunning);
                         } else if(speed_condition && headset_condition) {
-                            playLocalStoredClip(userProfileObj.getLocalPlaylistClipName());
+                            playLocalStoredClip(Constants.localPlaylistClipName);
                         }
                         break;
                     default:
@@ -139,7 +137,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
             System.out.println("Internet Connected");
             connectivity_condition = true;
             if(headset_condition && speed_condition) {
-                watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
+                watchYoutubeVideo(Constants.youtubeVideoIdForRunning);
             }
 
         } else {
@@ -147,7 +145,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
             Toast.makeText(MusicPlaying.this,
                     "Internet Disconnected. Please Connect the Wifi and LTE.", Toast.LENGTH_LONG).show();
             connectivity_condition = false;
-            playLocalStoredClip(userProfileObj.getLocalPlaylistClipName());
+            playLocalStoredClip(Constants.localPlaylistClipName);
         }
     }
 
@@ -243,21 +241,29 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                             if(activity.getType() == 8 && activity.getConfidence() >= 60) {
                                 speed_condition = true;
                                 if(headset_condition && connectivity_condition) {
-                                    watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
+                                    watchYoutubeVideo(Constants.youtubeVideoIdForRunning);
                                 }
 
                             } else if(activity.getType() == 7 && activity.getConfidence() >= 60) {
                                 Toast.makeText(MusicPlaying.this,
                                         "Your are walking, music will slow down", Toast.LENGTH_LONG).show();
-                                if(headset_condition) {
-                                    watchYoutubeVideo(userProfileObj.getGetYoutubeVideoIdForWalking());
+                                if(headset_condition && connectivity_condition) {
+                                    watchYoutubeVideo(Constants.youtubeVideoIdForWalking);
                                 }
                             }
                             else if(activity.getType() == 3 && activity.getConfidence() >= 60) {
 
+                                //For Debugging
+                                watchYoutubeVideo(Constants.youtubeVideoIdForRunning);
+                                System.out.println(Constants.youtubeVideoIdForRunning+"SSKSKSKSKS");
+
                                 Toast.makeText(MusicPlaying.this,
                                         "Your are stationary please begin walking", Toast.LENGTH_LONG).show();
 
+                            } else {
+                                if(headset_condition && connectivity_condition) {
+                                    watchYoutubeVideo(Constants.youtubeVideoIdForRunning);
+                                }
                             }
                         }
                     }

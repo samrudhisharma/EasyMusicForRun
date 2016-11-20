@@ -27,12 +27,18 @@ public class MusicPlaylist extends AppCompatActivity {
             {
                 final String _videoIDforRunning = videoIDforRunning.getText().toString();
                 userProfileObj.setYoutubeVideoIdForRunning(_videoIDforRunning);
+                Constants.youtubeVideoIdForRunning = _videoIDforRunning;
+                System.out.println("Rohit: "+ Constants.youtubeVideoIdForRunning);
 
                 final String _localClipName = localClipName.getText().toString();
                 userProfileObj.setLocalPlaylistClipName(_localClipName);
+                Constants.localPlaylistClipName = _localClipName;
+                System.out.println("Mana: "+ Constants.localPlaylistClipName);
 
                 final String _videoIDforWalking = videoIDforWalking.getText().toString();
                 userProfileObj.setGetYoutubeVideoIdForWalking(_videoIDforWalking);
+                Constants.youtubeVideoIdForWalking = _videoIDforWalking;
+                System.out.println("Virit: "+ Constants.youtubeVideoIdForWalking);
             }
         });
 
