@@ -16,9 +16,9 @@
             android:id="@+id/button"
             android:onClick="callListActivity"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/button3" />
+            android:layout_above="@+id/button13"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="106dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:text="Play"
             android:onClick="callMusicPlaying"
             android:id="@+id/button13"
-            android:layout_above="@+id/button3"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>
