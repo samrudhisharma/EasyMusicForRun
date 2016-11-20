@@ -40,6 +40,8 @@ The application being suggested is called “Easy Music For Run”. This applica
 
 ##### Screenshots: <br/>
 
+[Screenshots](Screenshots.md)
+
 ##### Application Flow: <br/>
 
 TODO
