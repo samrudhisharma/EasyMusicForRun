@@ -54,6 +54,8 @@ import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihood;
+import android.media.MediaPlayer;
+
 
 public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -64,7 +66,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
     private final String CONNECTIVITY = "android.net.conn.CONNECTIVITY_CHANGE";
     private GoogleApiClient mGoogleApiClient;
     private final static int REQUEST_PERMISSION_RESULT_CODE = 42;
-
+    private MediaPlayer mp;
 
     // conditional variables
     boolean speed_condition = false;
@@ -79,6 +81,14 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         myReceiver = new MusicIntentReceiver();
 
         registerReceiver();
+
+        if (mp != null) {
+            mp.release();
+        }
+        // Create a new MediaPlayer to play this sound
+        mp = MediaPlayer.create(this, R.raw.clip1);
+        mp.start();
+
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
