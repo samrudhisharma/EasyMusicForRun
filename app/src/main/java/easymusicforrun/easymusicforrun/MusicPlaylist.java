@@ -17,13 +17,22 @@ public class MusicPlaylist extends AppCompatActivity {
         Button button10 = (Button) findViewById(R.id.button10);
         button10.setOnClickListener(new OnClickListener() {
 
-            final EditText runningId   = (EditText)findViewById(R.id.editText);
-            final EditText walkingId   = (EditText)findViewById(R.id.editText2);
+            UserProfileObj userProfileObj = new UserProfileObj();
+
+            final EditText videoIDforRunning = (EditText)findViewById(R.id.editText2);
+            final EditText localClipName   = (EditText)findViewById(R.id.editText);
+            final EditText videoIDforWalking   = (EditText)findViewById(R.id.editText4);
 
             public void onClick(View v)
             {
-                final String _runningId = runningId.getText().toString();
-                final String _walkingId = walkingId.getText().toString();
+                final String _videoIDforRunning = videoIDforRunning.getText().toString();
+                userProfileObj.setYoutubeVideoIdForRunning(_videoIDforRunning);
+
+                final String _localClipName = localClipName.getText().toString();
+                userProfileObj.setLocalPlaylistClipName(_localClipName);
+
+                final String _videoIDforWalking = videoIDforWalking.getText().toString();
+                userProfileObj.setGetYoutubeVideoIdForWalking(_videoIDforWalking);
             }
         });
 

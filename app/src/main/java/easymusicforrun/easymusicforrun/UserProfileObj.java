@@ -2,40 +2,32 @@ package easymusicforrun.easymusicforrun;
 
 public class UserProfileObj {
 
-    String localPlayListName = "Usher";
-    String youtubePlaylistName = "User";
-    double minWalkingSpeed = -0.01;
-    double minRunningSpeed = -0.01;
+    String localPlaylistClipName = "";
+    String youtubeVideoIdForRunning = "";
+    String youtubeVideoIdForWalking = "";
 
-    public String getLocalPlayListName() {
-        return localPlayListName;
-    }
-
-    public void setLocalPlayListName(String localPlayListName) {
-        this.localPlayListName = localPlayListName;
-    }
-    
-    public String getYoutubePlaylistName() {
-        return youtubePlaylistName;
+    public String getLocalPlaylistClipName() {
+        return localPlaylistClipName;
     }
 
-    public void getYoutubePlaylistName(String youtubePlaylistName) {
-        this.youtubePlaylistName = youtubePlaylistName;
+    public void setLocalPlaylistClipName(String localPlaylistClipName) {
+        this.localPlaylistClipName = localPlaylistClipName;
     }
 
-    public double getMinWalkingSpeed() {
-        return minWalkingSpeed;
+    public String getYoutubeVideoIdForRunning(){
+        return youtubeVideoIdForRunning;
     }
 
-    public void setMinWalkingSpeed(int minWalkingSpeed){
-        this.minWalkingSpeed = minWalkingSpeed;
+    public void setYoutubeVideoIdForRunning(String youtubeVideoIdForRunning) {
+        this.youtubeVideoIdForRunning = youtubeVideoIdForRunning;
     }
 
-    public double getMinRunningSpeed() {
-        return minRunningSpeed;
+    public String getGetYoutubeVideoIdForWalking() {
+        return youtubeVideoIdForWalking;
     }
 
-    public void setMinRunningSpeed(int minRunningSpeed) {
-        this.minRunningSpeed = minRunningSpeed;
+    public void setGetYoutubeVideoIdForWalking(String youtubeVideoIdForWalking) {
+        this.youtubeVideoIdForWalking = youtubeVideoIdForWalking;
     }
+
 }

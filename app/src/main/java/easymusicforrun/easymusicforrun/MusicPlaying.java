@@ -49,6 +49,8 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicplaying);
 
+        UserProfileObj userProfileObj = new UserProfileObj();
+
         myReceiver = new MusicIntentReceiver();
 
         registerReceiver();
@@ -106,9 +108,9 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                         //Running, wifi connected, headphones connected
                         if (speed_condition && headset_condition && connectivity_condition) {
                             //TODO: Add Channel Code
-                            watchYoutubeVideo("AQ-P5RR7r40");
+                            watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
                         } else if(speed_condition && headset_condition) {
-                            playLocalStoredClip();
+                            playLocalStoredClip(userProfileObj.getLocalPlaylistClipName());
                         }
                         break;
                     default:
@@ -137,7 +139,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
             System.out.println("Internet Connected");
             connectivity_condition = true;
             if(headset_condition && speed_condition) {
-                watchYoutubeVideo("AQ-P5RR7r40");
+                watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
             }
 
         } else {
@@ -145,7 +147,7 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
             Toast.makeText(MusicPlaying.this,
                     "Internet Disconnected. Please Connect the Wifi and LTE.", Toast.LENGTH_LONG).show();
             connectivity_condition = false;
-            playLocalStoredClip();
+            playLocalStoredClip(userProfileObj.getLocalPlaylistClipName());
         }
     }
 
@@ -241,14 +243,14 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                             if(activity.getType() == 8 && activity.getConfidence() >= 60) {
                                 speed_condition = true;
                                 if(headset_condition && connectivity_condition) {
-                                    watchYoutubeVideo("AQ-P5RR7r40");
+                                    watchYoutubeVideo(userProfileObj.getYoutubeVideoIdForRunning());
                                 }
 
                             } else if(activity.getType() == 7 && activity.getConfidence() >= 60) {
                                 Toast.makeText(MusicPlaying.this,
                                         "Your are walking, music will slow down", Toast.LENGTH_LONG).show();
                                 if(headset_condition) {
-                                    watchYoutubeVideo("wzjWIxXBs_s");
+                                    watchYoutubeVideo(userProfileObj.getGetYoutubeVideoIdForWalking());
                                 }
                             }
                             else if(activity.getType() == 3 && activity.getConfidence() >= 60) {
@@ -262,15 +264,21 @@ public class MusicPlaying extends AppCompatActivity implements GoogleApiClient.O
                 });
     }
 
-    private void playLocalStoredClip() { //Replace with playlist name
+    private void playLocalStoredClip(String clipName) { //Replace with playlist name
 
         if (mp != null) {
             mp.release();
         }
 
-        // Create a new MediaPlayer to play this sound
-        mp = MediaPlayer.create(this, R.raw.clip1);
-        mp.start();
+
+        if(clipName == "clip1") {
+            // Create a new MediaPlayer to play this sound
+            mp = MediaPlayer.create(this, R.raw.clip1);
+            mp.start();
+        } else {
+            mp = MediaPlayer.create(this, R.raw.clip2);
+            mp.start();
+        }
     }
 
 }
